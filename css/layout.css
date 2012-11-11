@@ -1,0 +1,51 @@
+
+body
+{
+ font-family: Arial,"Bitstream Vera Sans",Helvetica,Verdana,sans-serif;
+}
+
+div #box
+{
+border:2px solid #a1a1a1;
+padding:1px 4px; 
+background-color: #F9F9F9;
+width:300px;
+border-radius:25px;
+-moz-border-radius:25px; /* Firefox 3.6 and earlier */
+font-size: 12px;
+}
+
+
+<style type="text/css">
+table {
+	border: 1px solid #DFDFDF;
+	background-color: #F9F9F9;
+	width: 100%;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	
+	color: #333;
+}
+table td,  th {
+	border-top-color: white;
+	border-bottom: 1px solid #DFDFDF;
+	color: #555;
+}
+table th {
+	text-shadow: rgba(255, 255, 255, 0.796875) 0px 1px 0px;
+	font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+	font-weight: normal;
+	padding: 7px 7px 8px;
+	text-align: left;
+	line-height: 1.3em;
+	font-size: 14px;
+}
+table td {
+	font-size: 12px;
+	padding: 4px 7px 2px;
+	vertical-align: top;
+	font-size: 14px;
+}
+</style>
+

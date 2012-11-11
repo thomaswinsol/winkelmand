@@ -8,9 +8,9 @@ session_start();
 <!doctype html>
 <html>
     <head>
-        <title>Winkelmand</title>
+    <title>Winkelmand</title>
 		<link rel="Stylesheet" type="text/css" href="css/layout.css" ></link>
-		    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>  
+		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>  
 		<script type="text/javascript">
 			$( function () {
 	
@@ -22,13 +22,12 @@ session_start();
     											index: $(this).attr("id")
   												},
   									success: function (data) {
-														 			//alert("ok");
     															$('#winkelmand').empty().html(data);
   												}
 							});
 				 });
 				 
-				 $(".min").click( function () {
+				 $(".min").live("click", function(){ 			
 						$.ajax({
 										type: 'POST',
   									url: 'verwijderenUitMand.php',
@@ -36,46 +35,59 @@ session_start();
     											index: $(this).attr("id")
   												},
   									success: function (data) {
-														 			//alert("ok");
     															$('#winkelmand').empty().html(data);
   												}
 							});
 				 });
-				 
-				 $("#Mandleegmaken").click( function () {
+				 $("#Mandleegmaken").live("click", function(){ 
+				    if (confirm("Wilt u werkelijk de winkelmand leegmaken?")) {				 
 						$.ajax({
 										type: 'POST',
-  									url: 'leegmaken.php',
+  									url: 'leegmaken_bestellen.php',
   									data: {    											
   												},
   									success: function (data) {
-														 			//alert("ok");
     															$('#winkelmand').empty().html(data);																	
   												}
 							});
+					   }
 				 });
+				 
+				 $("#Mandbestellen").live("click", function(){ 
+				    if (confirm("Wilt u werkelijk de winkelmand bestellen?")) {				 
+						$.ajax({
+										type: 'POST',
+  									url: 'leegmaken_bestellen.php',
+  									data: {   
+															mail: 1, 											
+  												},
+  									success: function (data) {
+    															$('#winkelmand').empty().html(data);	
+																	alert("Uw winkelmand is verzonden");																
+  												}
+							});
+					   }
+				 });
+				 
 			});
-</script>
+			</script>
     
-    </head>
-    <body>
+      </head>
+      <body>
 <?php
-//session_destroy();
-
 if(!isset($_SESSION['winkelmand'])) {																		
    $winkelmand = new Winkelmand();
 	 $winkelmand->mandLeegmaken();
    $_SESSION['winkelmand'] = $winkelmand;
 }
 ?>      
-
-
-<div style="float:left;">
-				<button id='Mandleegmaken'>Winkelmand leegmaken</button>																					
+<div style="float:left;">			
+<div id="box">			
+		 <div id="title">Artikellijst</title></div>																			
         <table>            
                 <tr>
                     <th>Nr</th>
-                    <th>Gsm</th>
+                    <th>Omschrijving</th>
                     <th>Prijs</th>      
                 </tr>            
         <?php    
@@ -86,17 +98,20 @@ if(!isset($_SESSION['winkelmand'])) {
                     <td><?php echo $row['id']; ?></td>                
                     <td><?php echo $row['titel']; ?></td>
                     <td><?php echo $row['prijs']; ?>€</td>
-                    <td> <button class='plus' id="<?php echo $ii; ?>">+</button></td> 
-										<td> <button class='min' id="<?php echo $ii; ?>">-</button></td> 
+                    <td> <button class='plus' id="<?php echo $ii; ?>">Toevoegen aan winkelmand</button></td>
                 </tr>
                 
         <?php $ii++; 
         }
         ?>           
         </table>
+				</div>
 </div>
-<div id="winkelmand" style="float:right;"> 
-<?php echo $_SESSION['winkelmand']->mandWeergeven(); ?>
-</div>							
-    </body>
+<div style="float:right;"> 
+				<div id="winkelmand">
+						 <?php echo $_SESSION['winkelmand']->mandWeergeven(); ?>
+				</div>
+</div>	
+						
+</body>
 </html>

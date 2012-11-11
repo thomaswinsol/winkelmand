@@ -51,14 +51,14 @@ class Winkelmand {
      * @param array $items
      * @return void
      */
-    public function verwijderenUitMand($items) {
+    public function verwijderenUitMand($itemId) {
         foreach ($this->mand as $key => $value) {
-            if ($this->mand[$key]['id'] == $items['id']) {
-                $this->mand[$key]['aantal'] -= $items['aantal'];
+            if ($this->mand[$key]['id'] == $itemId) {
+                $this->mand[$key]['aantal'] -= 1;
 								if ($this->mand[$key]['aantal'] < 0) {
 									 $this->mand[$key]['aantal']=0;
 								}
-                return;// stop met code uit te voeren, we verwachten maar één element en die hebben we gehad!
+                return;
             }
         }
     }
@@ -77,21 +77,25 @@ class Winkelmand {
 				 				if ($this->mand[$key]['aantal']>0){
 				 					 if ($ii==0) {
 									 		echo "<div id='box'>";
-											echo "<p><strong>Winkelmand</th></strong>";
-											echo "<hr>";
+											echo "<div id='title'>Winkelmand</strong></div>";	
+											echo "<table><tr>";										
+											echo "<td><button id='Mandleegmaken'>Winkelmand leegmaken</button></td>";
+											echo "<td><button id='Mandbestellen'>Winkelmand bestellen</button></td>";
+											echo "<td></td></tr>";
+											echo "<tr><th>Omschrijving</th><th>Aantal</th><th></th><th>Prijs</th></tr>";
 								   }
-									 echo "<p>".$this->mand[$key]['aantal']. " x " . $this->mand[$key]['titel']."</p>";
+									 echo "<tr><td>".$this->mand[$key]['titel']. "</td><td>".$this->mand[$key]['aantal']. "</td><td><button class='min' id='".$this->mand[$key]['id']. "'>Verwijder uit Winkelmand</button></td>". "</td>" . "<td>". $this->mand[$key]['prijs'] . "�</td></tr>";
 									 $totaal += $this->mand[$key]['aantal']*$this->mand[$key]['prijs'];
 									 $ii++;
 							  }	
 						}
 				}
 				if ($ii>0) {
-					 echo "<p><strong>Totaal = ".$totaal." EUR</strong></p>";
-					 echo "</div>";
+					 echo "<tr><td></td><td></td><td>Totaal te betalen</td><td>". $totaal. "</td></tr></table>";				 	 
+					 echo "</div>";					 
 				}
 				else {
-						 echo "Winkelmand is leeg";
+						 echo "<div id='box'><div id='title'>Winkelmand is leeg</div></div>";
 				}
 				
         //return $value;

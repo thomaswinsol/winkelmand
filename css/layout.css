@@ -9,12 +9,17 @@ div #box
 border:2px solid #a1a1a1;
 padding:1px 4px; 
 background-color: #F9F9F9;
-width:300px;
+width:500px;
 border-radius:25px;
 -moz-border-radius:25px; /* Firefox 3.6 and earlier */
 font-size: 12px;
 }
 
+div #title
+{
+text-align:center;
+font-weight:bold;
+}
 
 <style type="text/css">
 table {
